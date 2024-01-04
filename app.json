@@ -1,0 +1,44 @@
+{
+  "expo": {
+    "name": "guren mongol",
+    "slug": "guren_mongol",
+    "version": "1.0.5",
+    "orientation": "portrait",
+    "icon": "./assets/images/adaptive-icon.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/images/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "assetBundlePatterns": ["**/*"],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "school.siip.guren_mongol",
+      "buildNumber": "1.0.5"
+    },
+    "android": {
+      "versionCode": 1,
+      "package": "school.siip.guren_mongol",
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#ffffff"
+      }
+    },
+    "plugins": [
+      [
+        "expo-build-properties",
+        {
+          "android": {
+            "usesCleartextTraffic": true
+          }
+        }
+      ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "b755735e-1295-484e-9631-af25d4bb1d2a"
+      }
+    }
+  }
+}
