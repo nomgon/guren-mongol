@@ -61,6 +61,7 @@ export default ({ navigation }) => {
       <View style={{ flexDirection: "row", justifyContent: "space-evenly" }}>
         <MyButton title="Буцах" onPress={() => navigation.goBack()} />
         <MyButton title="Нэвтрэх" onPress={loginHandler} />
+        {/* <MyButton title="Login" onPress={() => state.login(email, password)} /> */}
       </View>
     </View>
   );

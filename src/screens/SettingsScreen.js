@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import {
   View,
   StyleSheet,
@@ -6,6 +6,7 @@ import {
   StatusBar,
   SafeAreaView,
   ScrollView,
+  Button,
   Alert,
 } from "react-native";
 import { mainColor, lightColor } from "../Constant";
@@ -16,13 +17,18 @@ import * as Notifications from "expo-notifications";
 // import * as Permissions from "expo-permissions";
 import { expo } from "../../app.json";
 import Target from "./Target";
+import MyButton from "../components/MyButton";
 // import { useNavigation } from "@react-navigation/native";
+import UserContext from "../context/UserContext";
+import { UserState } from "../context/UserContext";
 
 const SettingsScreen = (props) => {
   // const navigation = useNavigation();
   const [alarm, setAlarm] = useState(false);
   const [notificationID, setNotificationID] = useState(null);
   const projectId = expo.projectId;
+  const state = useContext(UserContext);
+
   Notifications.setNotificationHandler({
     handleNotification: async () => ({
       shouldShowAlert: true,
@@ -177,44 +183,93 @@ const SettingsScreen = (props) => {
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: mainColor }}>
-      <StatusBar backgroundColor={mainColor} barStyle="light-content" />
-      <View
-        style={{
-          flex: 1,
-          backgroundColor: mainColor,
-          paddingHorizontal: 30,
-          paddingVertical: 20,
-        }}
-      >
-        <Text style={{ fontSize: 24, color: lightColor }}>
-          - Зорилгыг сануулах болон бусад мэдэгдлийн тохиргоо
-        </Text>
-        <Text style={{ fontSize: 16, color: lightColor, marginTop: 10 }}>
-          Хэрэглэгчийн тохируулгууд энд нэмэгдэнэ.
-        </Text>
-      </View>
-      <Animatable.View
-        animation="fadeInUpBig"
-        duration={800}
-        style={{
-          flex: 5,
-          backgroundColor: "#fff",
-          paddingHorizontal: 30,
-          paddingVertical: 20,
-          borderTopLeftRadius: 50,
-          borderTopRightRadius: 50,
-        }}
-      >
-        <ScrollView>
-          <FormSwitch
-            label="Зорилгыг өдөр бүр сануулах эсэх"
-            icon="clock"
-            value={alarm}
-            onChangeValue={toggleAlarm}
-            data={["сануулга хүлээн авна", "сануулга хүлээн авахгүй"]}
-          />
-        </ScrollView>
-      </Animatable.View>
+      <UserState>
+        <StatusBar backgroundColor={mainColor} barStyle="light-content" />
+        <View
+          style={{
+            flex: 1,
+            backgroundColor: mainColor,
+            paddingHorizontal: 30,
+            paddingVertical: 20,
+          }}
+        >
+          <Text style={{ fontSize: 24, color: lightColor }}>
+            - Хэрэглэгчийн тохиргооны хэсэг
+          </Text>
+          <Text style={{ fontSize: 16, color: lightColor, marginTop: 10 }}>
+            Нэмэлт тохируулгууд энд нэмэгдэж хөгжүүлэгдэнэ.
+          </Text>
+        </View>
+        <Animatable.View
+          animation="fadeInUpBig"
+          duration={800}
+          style={{
+            flex: 5,
+            backgroundColor: "#fff",
+            paddingHorizontal: 30,
+            paddingVertical: 20,
+            borderTopLeftRadius: 50,
+            borderTopRightRadius: 50,
+          }}
+        >
+          <ScrollView>
+            <FormSwitch
+              label="Зорилгыг өдөр бүр сануулах эсэх"
+              icon="clock"
+              value={alarm}
+              onChangeValue={toggleAlarm}
+              data={["сануулга хүлээн авна", "сануулга хүлээн авахгүй"]}
+            />
+            <View>
+              <Text style={{ marginTop: 30 }}>
+                Only 'Just after login", you can delete your account permanently
+                and directly.
+              </Text>
+              <MyButton
+                title="Delete user account"
+                onPress={() => {
+                  Alert.alert(
+                    "Caution",
+                    "Are you sure you want to delete your account? if so, please re-login and use DELETE button directly",
+                    [
+                      {
+                        text: "Turn back",
+                        onPress: () => {
+                          props.navigation.goBack();
+                        },
+                      },
+                      {
+                        text: "Delete",
+                        onPress: async () => {
+                          try {
+                            // Check if state.result and state.result.user are not null
+                            if (
+                              state.result &&
+                              state.result.user &&
+                              state.result.user._id
+                            ) {
+                              await state.deleteAccount(state.result.user._id);
+                            } else {
+                              console.log(
+                                "Result or its properties are null or undefined"
+                              );
+                            }
+                          } catch (error) {
+                            console.error(
+                              "Error deleting account:",
+                              error.message
+                            );
+                          }
+                        },
+                      },
+                    ]
+                  );
+                }}
+              />
+            </View>
+          </ScrollView>
+        </Animatable.View>
+      </UserState>
     </SafeAreaView>
   );
 };

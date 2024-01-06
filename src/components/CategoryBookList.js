@@ -5,7 +5,7 @@ import {
   View,
   FlatList,
   ActivityIndicator,
-  TouchableOpacity
+  TouchableOpacity,
 } from "react-native";
 import Book from "./Book";
 import useBooks from "../hooks/useBooks";
@@ -17,7 +17,7 @@ const CategoryBookList = ({
   searchLocalValue,
   searchServerValue,
   refreshCategories,
-  setRefreshCategories
+  setRefreshCategories,
 }) => {
   const [books, errorMessage, searchBook, loading] = useBooks(
     data._id,
@@ -26,7 +26,7 @@ const CategoryBookList = ({
     setRefreshCategories
   );
 
-  const filteredBooks = books.filter(el =>
+  const filteredBooks = books.filter((el) =>
     el.name.toLowerCase().includes(searchLocalValue.toLowerCase())
   );
 
@@ -47,7 +47,7 @@ const CategoryBookList = ({
         horizontal
         showsHorizontalScrollIndicator={false}
         data={filteredBooks}
-        keyExtractor={book => book.name}
+        keyExtractor={(book) => book.name}
         renderItem={({ item, index }) => <Book data={item} />}
       />
     </View>

@@ -1,8 +1,8 @@
 {
   "expo": {
     "name": "guren mongol",
-    "slug": "guren_mongol",
-    "version": "1.0.5",
+    "slug": "motherland",
+    "version": "1.0.6",
     "orientation": "portrait",
     "icon": "./assets/images/adaptive-icon.png",
     "userInterfaceStyle": "light",
@@ -14,12 +14,12 @@
     "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "school.siip.guren_mongol",
-      "buildNumber": "1.0.5"
+      "bundleIdentifier": "school.siip.motherland",
+      "buildNumber": "1.0.6"
     },
     "android": {
       "versionCode": 1,
-      "package": "school.siip.guren_mongol",
+      "package": "school.siip.motherland",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"

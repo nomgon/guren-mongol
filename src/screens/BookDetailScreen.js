@@ -28,7 +28,7 @@ const BookDetailScreen = (props) => {
         onPress: () => {
           deleteBook(book._id)
             .then((result) => {
-              console.log("Book is removed as successfully.", result.data.data);
+              console.log("Мэдээлэл амжилттай устгагдлаа.", result.data.data);
               props.navigation.navigate("Үүсгэн байгуулагчид", {
                 deletedBook: result.data.data,
               });
